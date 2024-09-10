@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+<body>
+    <!-- <form action="get">
+        {{form}}
+    </form> -->
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+
+            {{ form.as_table }}
+        </table>
+        <button type="submit">Save</button>
+    </form>
+    
+    <!-- <form action="get">
+        {{form.as_p}}
+    </form> -->
+    <!-- <form action="get">
+        {{form.as_ul}}
+    </form>
+ -->
+</body>
+</html>

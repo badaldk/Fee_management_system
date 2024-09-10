@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/pay.css' %}" /> -->
+{% endblock css %}
+
+{% block content %}
+ 
+<div class="container">
+  <h2 class="text-center">Payment</h2> <hr>
+  <!-- {{ form }} -->
+  <div class="container">
+    <form method="post">
+      {% csrf_token %}
+    <div class="row">
+      <div class="col col-sm-6">
+        <div class="form-group">
+          <label for="name"><strong>Name</strong></label>
+          <input type="text" name="name" id="name" class="form-control" placeholder="{{fullname}}" disabled>
+        </div>
+        <div class="form-group">
+          <label for="email"><strong> Email</strong></label>
+          <input type="email" name="email" id="email" class="form-control" placeholder="{{email}}" disabled>
+        </div>
+      </div>
+      <div class="col col-sm-6">
+        <div class="form-group">
+          <label for="amount"><strong> Amount</strong></label>
+          <input type="text" id="amount"  name="amount" class="form-control" placeholder="{{fee}}" disabled>
+        </div>
+        <div class="form-group">
+          <label for="course"><strong> Course</strong></label>
+          <input type="text" name="course" id="course" class="form-control" placeholder="{{course}}" disabled>
+          <br>
+        </div>
+      </div>  <hr>
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary">Pay Now</button>
+      </div>
+    </form>
+
+    <!-- Razorpay Button -->
+    {% if payment %}
+      <form action="{% url 'payment_status' %}" method="post">
+        {% csrf_token %}
+        <script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key = "rzp_test_tD2iMN2MtNXkvn"
+            data-amount="{{ payment.amount }}"
+            data-currency="{{ payment.currency }}"
+            data-order_id= "{{ payment.id }}"
+            data-buttontext="Pay With Razorpay"
+            data-name="Fees Management System"
+            data-description="A fee management system is used as task management software that automates collecting fees and generating fee receipts. It eliminates duplicate data entries and minimizes errors when entering entries into school accounts"
+            data-image="https://example.com/your_logo.jpg"
+            data-prefill.name="{{ payment.name }}"
+            data-prefill.email="{{ payment.email}}"
+            data-theme.color="#F37254" >
+        </script>
+        <input type="hidden" custom="Hidden Element" name="hidden">
+      </form>
+    {% endif %}
+
+    </div>
+  </div>
+    
+</div>
+    
+{% endblock content %}

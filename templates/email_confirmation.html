@@ -1,0 +1,10 @@
+{% autoescape off %}
+
+Welcome to FMS Login
+
+Hello {{ name }} 
+Please confirm your email by clicking on the following links. 
+
+Confirmation Links: http://{{ domain }}{% url 'activate' uidb64=uid token=token %} 
+
+{% endautoescape %}

@@ -1,0 +1,220 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'/>
+    <link rel="stylesheet" href='{% static "css/dashboard.css" %}'/>
+    <link rel="shortcut icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
+
+    <title>Dashboard</title>
+  </head>
+  <div class="bg-dark text-white" style=" padding: 10px;">
+    <div class="container-fluid ">
+      </div>
+  </div>
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark" style="padding: 10px;">
+    <div class="container-fluid">
+      <a class=" text-warning" href="#"> 
+         <img src="{% static 'images/logo.png' %}" alt="image not found" style="height: 8vh; margin-left: 40px; border-radius: 20px"/>
+     </a>
+     <h3 style="color: beige;"> Fees Management System</h3>
+
+        <!-- Toggler/collapsibe Button -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapsibleNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar links -->
+        <!-- <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact Us</a>
+            </li>
+            
+          </ul>
+          
+        </div> -->
+        <!--  <form class="form-inline my-lg-0"> -->
+          <ul class="navbar-nav">
+            {% if not user.is_authenticated %}
+          <li class="nav-item">
+            <a href="/signup">
+              <button
+                type="submit"
+                class="btn btn-outline-light form-control"
+                value="Sign Up"
+              >
+                Sign Up
+              </button></a
+            >
+          </li>
+          <li class="mx-2  nav-item">
+            <a href="/signin"
+            ><button type="submit" class=" btn btn-outline-light form-control">
+              Sign In
+            </button></a>    
+          </li>
+          {% else %}
+          <!-- <li class="mx-2  nav-item">
+            <a href="/signout"
+            ><button type="submit" class=" btn btn-outline-light form-control">
+              Sign Out
+            </button></a>    
+          </li> -->
+          {% endif %}
+          </ul>
+          <!-- <li class="mx-2 nav-item"><input class="  form-control " type="search" placeholder="Search" aria-label="Search"> </li>
+          <li class="mx-2 nav-item"><button class=" btn btn-outline-success  " type="submit">Search</button> </li>
+        </form> -->
+      </div>
+    </nav>
+
+    
+    <div class="container">
+      <div class="jumbotron">
+        {% for message in messages %}
+        <div
+          class="alert alert-{{ message.tags }} alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>Message:</strong> {{ message }}
+          <!-- <button
+            type="button"s
+            class="close"
+            data-dismiss="alert"
+            aria-lable="Close"
+          >
+            <span aria-hidden="true"></span>
+          </button> -->
+        </div>
+        {% endfor %}
+
+        <!-- <h3 class="text-center">Authentication </h3> -->
+
+        
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2 text-white "  style="background-color: rgb(48, 55, 55); height: 100vh;">
+      <div class="black">
+        <a href=""  style="text-decoration: none; color:white;">
+          <p class="pt-4"> <img src="{% static 'images/dashboard.png' %}" alt="" > Dashboard</p>
+        </a>
+        <hr>
+      </div>
+      <div class="black">
+        <a href="{% url 'profile' %}"  style="text-decoration: none; color:white;">
+        <p><img src="https://img.icons8.com/material/24/FFFFFF/user-male-circle--v1.png"/> Profile</p></a>
+        <hr>
+      </div>
+      <div class="black">
+        <a href="{% url 'admissionform' %}" style="text-decoration: none; color:white;">
+        <p><img src="{% static 'images/form.png' %}" alt="" > Admission Form</p></a>
+        <hr>
+      </div>
+      <!-- <div class="black">
+        <a href="{% url 'payment' %}"  style="text-decoration: none; color:white">
+        <p><img src="{% static 'images/Payment.png' %}" alt="" > Payments</p>
+      </a>
+        <hr>
+      </div>
+      <div class="black">
+        <a href="{% url 'feereceipt' %}" style="text-decoration: none; color: white;">
+          <p><img src="{% static 'images/receipt.png' %}" alt="" > Fee Receipt</p>
+        </a>
+        <hr>
+      </div> -->
+      <div class="black" >
+        <a href="{% url 'passwordchange' %}" style="text-decoration: none; color: white;">  
+        <p><img src="{% static 'images/setting.png' %}" alt="" > Change Password</p> </a>
+        <hr>
+      </div>
+      {% if user.is_authenticated %}
+      <div class="black">
+        <a href="/signout" style="text-decoration: none; color: white;">
+        <p><img src="https://img.icons8.com/material/24/FFFFFF/exit.png"/> Logout</p>
+      </a>
+        <hr>
+      </div>
+      {% endif %}
+      </div>
+      
+      <div class="col-sm-10">
+        <div class="mt-4 mx-4" style="background-color: beige;">
+        <div  class="mx-3" style="height: 80vh;">
+          <strong><h1 class="margin-top: 10px;">DASHBOARD</h1></strong><hr>
+          <div class="container text-center">
+            <div class="row justify-content-around" style ="min-height: 150px;">
+              
+              <div class="col col-2 bg-warning text-white rounded T-pro" >
+                <div class="row">
+                  <a href="{% url 'profile' %}" style="text-decoration:none; color: white;"> 
+                  <div class="col-12 card-1"> Profile
+                </div>
+                <div class="col-6" id="pro-icon" style=" margin-top: -5px;
+                margin-bottom: 10px;
+                margin-left: 40px;">
+                <img src="{% static 'images/users.svg' %}" alt="" class="p-icon"></div>
+              </a>
+              </div>
+              </div>
+            
+              {% comment %} Admission Form {% endcomment %}
+  
+              <div class="col col-sm-2 bg-info text-white rounded T-add" >
+                <div class="row">
+                  <a href="{% url 'admissionform' %}" style="text-decoration: none; color: white">
+                    <div class="col-12 card-2" > Admission Form </div>
+                    <div class="col-6" id="add-icon"><img src="{% static 'images/align-center.svg' %}" alt="" class="img-icon"></div>
+                  </a>
+                </div>
+              </div>
+  
+  
+              <!-- <div class="col col-sm-2 bg-danger text-white rounded T-pay">
+                <div class="row">
+                  <a href="{% url 'payment' %}" style="text-decoration: none; color: white">
+                    <div class="col-12 card-3" > Payment </div>
+                    <div class="col-6" id="pay-icon"><img src="{% static 'images/credit-card.svg' %}" alt="" ></div>
+                  </a>
+                </div>
+              </div> -->
+  
+  
+              <div class="col col-sm-2 bg-success text-white rounded T-fee">
+                <div class="row">
+                <a href="{% url 'passwordchange' %}" style="text-decoration: none; color: white">
+                  <div class="col-12 card-4"> Change Password </div>
+                  <div class="col-6" id="fee-icon"><img src="{% static 'images/file-text.svg' %}" alt="" ></div>
+                </a>
+              </div>
+              
+            </div>
+            <!-- {% if user.is_authenticated %}
+           <h4 class="text-center">Welcome to Dashboard</h4> -->
+          <!-- <h3>Hello {{ fname }}&nbsp;{{ lname }}</h3>
+          <h4>You're successfully logged in.</h4> -->
+        
+        <!-- {% endif %}  -->
+        </div> 
+        <!-- <p>hello</p> -->
+      </div>
+    </div>
+  </div></div></div>
+  {% include "utility/main-footer.html" %}
+  </body>
+</html>

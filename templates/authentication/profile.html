@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<style>
+  body {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+
+  .profile-picture {
+    max-width: 200px;
+    border-radius: 20%;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .section-heading {
+    margin: 0;
+    color: #333;
+  }
+
+  .section-content {
+    margin-bottom: 20px;
+  }
+
+  .section-content p {
+    margin: 5px 0;
+    color: #666;
+  }
+
+  .section-content table {
+    width: 100%;
+    margin-bottom: 10px;
+    border-collapse: collapse;
+  }
+
+  .section-content th,
+  .section-content td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .section-content th {
+    background-color: #f4f4f4;
+    color: #333;
+  }
+</style>
+{% endblock css %}
+{% block content %}
+
+
+<div class="container">
+  <div class="section-content">
+      <div class="row">
+        <div class="col col-sm-4">
+          {% for i in data %}
+          <p><strong>Enrollment No.:</strong> {{ i.enumber }}</p>
+        </div>
+      </div>
+      <hr>
+  
+      <div class="row">
+        <div class="col col-sm-5">
+          <h2 class="section-heading text-primary">Personal Information</h2> <hr>
+          <p><strong>Full Name:</strong> {{ i.fullname }}</p>
+          <p><strong>Gender:</strong> {{ i.gender }}</p>
+          <p><strong>Date of Birth:</strong> {{ i.dob }}</p>
+          <p><strong>Email:</strong> {{ i.email }}</p>
+          <p><strong>Phone:</strong> {{ i.phone }}</p>
+          <p><strong>Address:</strong> {{ i.address }}</p>
+        </div>
+        <div class="col col-sm-5">
+          <h2 class="section-heading text-primary">Qualifications </h2> <hr>
+          <div class="row">
+            <div class="col col-sm-6">
+              <p><strong>Course:</strong> {{ i.course }} </p>
+            </div>
+            <div class="col col-sm-6">
+              <p><strong>Duration:</strong> 2 Years </p>
+            </div>
+          </div>
+          
+        </div>
+        <div class="col col-sm-2">
+          <img style="float: right;"
+        class="profile-picture"
+        src="/media/{{ i.profileimage}}"
+        alt="Profile Picture"
+      />
+      <!-- src="/media/Profiles/kashif.jpeg" -->
+      <!-- src="{% static 'Profile/kashif.jpeg' %}" -->
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <h2 class="section-heading text-primary mb-3">Fee Info </h2> <br> <hr> 
+        <table class="table table-hover">
+          <thead class="table-primary ">
+            <tr>
+              <th scope="col">Total Amount</th>
+              <th scope="col">Due Amount</th>
+              <th scope="col">Paid Amount</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Rs. {{ fee }}</th>
+              {% if is_paid %}
+                <td>Rs. 0</td>
+                
+                {% else %}
+                <td>Rs. {{ fee }}</td>
+              {% endif %}
+              {% if not is_paid %}
+                <td>Rs. 0</td>
+                
+                {% else %}
+                <td>Rs. {{ fee }}</td>
+              {% endif %}
+              <td>
+                {% if not is_paid %}
+                <a href="/payment"><button type="submit" class="btn btn-primary">
+                  Pay </button></a>
+                  {% else %}
+                <a href="/feereceipt"><button type="submit" class="btn btn-primary">
+                Receipt </button></a>
+                {% endif %}
+              </td>
+            </tr>          
+            
+          </tbody>
+        </table>
+      </div>
+      <div>
+        {% endfor %}
+        
+      </div>
+    </div>
+      {% if user.is_authenticated %}
+      <!-- <h4 class="text-center">Welcome to Dashboard</h4> -->
+      <!-- <h3>Hello {{ request.user.first_name }}&nbsp;{{ request.user.last_name }}</h3> -->
+      <!-- <h4>You're successfully logged in.</h4> -->
+
+      {% endif %}
+            <!-- <hr> -->
+
+      <div class="section-content">
+        
+    </div>
+{% endblock %}
